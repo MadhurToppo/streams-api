@@ -1,8 +1,8 @@
 package com.madhurtoppo.streamsapi;
 
-import com.madhurtoppo.streamsapi.repositories.CustomerRepo;
-import com.madhurtoppo.streamsapi.repositories.OrderRepo;
-import com.madhurtoppo.streamsapi.repositories.ProductRepo;
+import com.madhurtoppo.streamsapi.repositories.CustomerRepository;
+import com.madhurtoppo.streamsapi.repositories.OrderRepository;
+import com.madhurtoppo.streamsapi.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,13 +15,13 @@ import javax.transaction.Transactional;
 public class AppCommandRunner implements CommandLineRunner {
 
 	@Autowired
-	private CustomerRepo customerRepos;
+	private CustomerRepository customerRepos;
 	
 	@Autowired
-	private OrderRepo orderRepos;
+	private OrderRepository orderRepos;
 	
 	@Autowired
-	private ProductRepo productRepos;
+	private ProductRepository productRepos;
 
 	@Transactional
 	@Override

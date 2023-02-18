@@ -2,12 +2,12 @@ package com.madhurtoppo.streamsapi.repositories;
 
 import java.util.List;
 
-import com.madhurtoppo.streamsapi.entities.Product;
+import com.madhurtoppo.streamsapi.entities.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepo extends CrudRepository<Product, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-	List<Product> findAll();
+	List<Customer> findAll();
 }
