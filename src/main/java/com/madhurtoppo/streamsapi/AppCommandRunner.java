@@ -1,12 +1,12 @@
-package space.gavinklfong.demo.streamapi;
+package com.madhurtoppo.streamsapi;
 
+import com.madhurtoppo.streamsapi.repositories.CustomerRepo;
+import com.madhurtoppo.streamsapi.repositories.OrderRepo;
+import com.madhurtoppo.streamsapi.repositories.ProductRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import space.gavinklfong.demo.streamapi.repos.CustomerRepo;
-import space.gavinklfong.demo.streamapi.repos.OrderRepo;
-import space.gavinklfong.demo.streamapi.repos.ProductRepo;
 
 import javax.transaction.Transactional;
 

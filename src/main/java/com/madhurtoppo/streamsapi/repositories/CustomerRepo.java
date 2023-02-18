@@ -1,11 +1,10 @@
-package space.gavinklfong.demo.streamapi.repos;
+package com.madhurtoppo.streamsapi.repositories;
 
 import java.util.List;
 
+import com.madhurtoppo.streamsapi.entities.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import space.gavinklfong.demo.streamapi.models.Customer;
 
 @Repository
 public interface CustomerRepo extends CrudRepository<Customer, Long> {

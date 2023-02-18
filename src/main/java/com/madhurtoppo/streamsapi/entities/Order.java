@@ -1,4 +1,4 @@
-package space.gavinklfong.demo.streamapi.models;
+package com.madhurtoppo.streamsapi.entities;
 
 import lombok.*;
 

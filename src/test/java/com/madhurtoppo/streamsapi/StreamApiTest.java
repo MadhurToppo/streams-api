@@ -1,4 +1,4 @@
-package space.gavinklfong.demo.streamapi;
+package com.madhurtoppo.streamsapi;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -13,18 +13,18 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.madhurtoppo.streamsapi.entities.Customer;
+import com.madhurtoppo.streamsapi.entities.Order;
+import com.madhurtoppo.streamsapi.entities.Product;
+import com.madhurtoppo.streamsapi.repositories.CustomerRepo;
+import com.madhurtoppo.streamsapi.repositories.ProductRepo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import lombok.extern.slf4j.Slf4j;
-import space.gavinklfong.demo.streamapi.models.Customer;
-import space.gavinklfong.demo.streamapi.models.Order;
-import space.gavinklfong.demo.streamapi.models.Product;
-import space.gavinklfong.demo.streamapi.repos.CustomerRepo;
-import space.gavinklfong.demo.streamapi.repos.OrderRepo;
-import space.gavinklfong.demo.streamapi.repos.ProductRepo;
+import com.madhurtoppo.streamsapi.repositories.OrderRepo;
 
 @Slf4j
 @DataJpaTest
@@ -42,7 +42,7 @@ public class StreamApiTest {
         products.forEach(product -> log.info(product.toString()));
     }
 
-    @Test @DisplayName("List all Products") public void listAllOrders() {
+    @Test @DisplayName("List all Orders") public void listAllOrders() {
         List<Order> orders = orderRepo.findAll();
         log.info("List all orders");
         orders.forEach(order -> log.info(order.toString()));

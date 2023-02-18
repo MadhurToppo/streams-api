@@ -8,10 +8,10 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>space.gavinklfong.demo</groupId>
-	<artifactId>streamapi</artifactId>
+	<groupId>com.madhurtoppo</groupId>
+	<artifactId>streamsapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>streamsapi</name>
 	<description>Exercises for Java Stream API</description>
 	<properties>
 		<java.version>11</java.version>
