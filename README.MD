@@ -1,1 +1,1 @@
-# Java Streams API play-ground
+# Java Streams API playground
