@@ -25,20 +25,20 @@ import lombok.With;
 @Table
 public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String category;
-	
-	@With
-	private Double price;
-	
-	@ManyToMany(mappedBy = "products")
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
-	private Set<Order> orders;
-	
+    private String category;
+
+    @With
+    private Double price;
+
+    @ManyToMany(mappedBy = "products")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Order> orders;
+
 }

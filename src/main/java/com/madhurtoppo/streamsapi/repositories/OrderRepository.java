@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
-	List<Order> findAll();
+    List<Order> findAll();
 }

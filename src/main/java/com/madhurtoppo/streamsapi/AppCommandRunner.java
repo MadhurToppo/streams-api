@@ -14,29 +14,26 @@ import javax.transaction.Transactional;
 @Component
 public class AppCommandRunner implements CommandLineRunner {
 
-	@Autowired
-	private CustomerRepository customerRepos;
-	
-	@Autowired
-	private OrderRepository orderRepos;
-	
-	@Autowired
-	private ProductRepository productRepos;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	@Transactional
-	@Override
-	public void run(String... args) throws Exception {
-		log.info("Customers:");
-		customerRepos.findAll()
-				.forEach(c -> log.info(c.toString()));
+    @Autowired
+    private OrderRepository orderRepository;
 
-		log.info("Orders:");
-		orderRepos.findAll()
-				.forEach(o -> log.info(o.toString()));
+    @Autowired
+    private ProductRepository productRepository;
 
-		log.info("Products:");
-		productRepos.findAll()
-				.forEach(p -> log.info(p.toString()));
-	}
+    @Transactional
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("Customers:");
+        customerRepository.findAll().forEach(customer -> log.info(customer.toString()));
+
+        log.info("Orders:");
+        orderRepository.findAll().forEach(order -> log.info(order.toString()));
+
+        log.info("Products:");
+        productRepository.findAll().forEach(product -> log.info(product.toString()));
+    }
 
 }
