@@ -126,6 +126,7 @@ public class StreamApiTest {
                 .filter(order -> order.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
                 .filter(order -> order.getOrderDate().compareTo(LocalDate.of(2021, 4, 1)) <= 0)
                 .flatMap(order -> order.getProducts().stream())
+                .peek(product -> System.out.println(product))
                 .distinct()
                 .collect(Collectors.toList());
         long endTime = System.currentTimeMillis();
@@ -161,20 +162,20 @@ public class StreamApiTest {
     }
 
     @Test
-    @DisplayName("Get a list of products which was ordered on 15-Mar-2021")
+    @DisplayName("Get a list of products which were ordered on 15-Mar-2021")
     public void exercise7() {
         long startTime = System.currentTimeMillis();
-        List<Product> result = orderRepository.findAll()
+        List<Product> products = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getOrderDate().isEqual(LocalDate.of(2021, 3, 15)))
-                .peek(o -> System.out.println(o.toString()))
-                .flatMap(o -> o.getProducts().stream())
+                .filter(order -> order.getOrderDate().isEqual(LocalDate.of(2021, 3, 15)))
+                .peek(order -> System.out.println(order))
+                .flatMap(order -> order.getProducts().stream())
                 .distinct()
                 .collect(Collectors.toList());
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 7 - execution time: %1$d ms", (endTime - startTime)));
-        result.forEach(o -> log.info(o.toString()));
+        products.forEach(o -> log.info(o.toString()));
     }
 
     @Test
