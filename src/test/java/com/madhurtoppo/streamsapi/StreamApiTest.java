@@ -199,14 +199,13 @@ public class StreamApiTest {
         List<Product> products = orderRepository.findAll()
                 .stream()
                 .filter(order -> order.getOrderDate().isEqual(LocalDate.of(2021, 3, 15)))
-                .peek(order -> System.out.println(order))
                 .flatMap(order -> order.getProducts().stream())
                 .distinct()
                 .collect(Collectors.toList());
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 7 - execution time: %1$d ms", (endTime - startTime)));
-        products.forEach(o -> log.info(o.toString()));
+        products.forEach(product -> log.info(product.toString()));
     }
 
     @Test
