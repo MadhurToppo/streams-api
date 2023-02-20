@@ -135,16 +135,47 @@ public class StreamApiTest {
     }
 
     @Test
-    @DisplayName("Get the 3 cheapest products of \"Books\" category")
+    @DisplayName("Get the cheapest product of \"Books\" category")
     public void exercise5() {
         long startTime = System.currentTimeMillis();
-        Optional<Product> result = productRepository.findAll()
+        Optional<Product> product = productRepository.findAll()
                 .stream()
-                .filter(product -> product.getCategory().equalsIgnoreCase("Books"))
+                .filter(p -> p.getCategory().equalsIgnoreCase("Books"))
                 .min(Comparator.comparing(Product::getPrice));
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 5 - execution time: %1$d ms", (endTime - startTime)));
-        log.info(result.get().toString());
+        log.info(String.valueOf(product));
+    }
+
+    @Test
+    @DisplayName("Get the top 3 cheapest products of \"Books\" category")
+    public void exercise5a() {
+        long startTime = System.currentTimeMillis();
+        List<Product> products = productRepository.findAll()
+                .stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase("Books"))
+                .peek(product -> System.out.println(product))
+                .sorted(Comparator.comparing(Product::getPrice))
+                .limit(3)
+                .collect(Collectors.toList());
+        long endTime = System.currentTimeMillis();
+        log.info(String.format("exercise 5 - execution time: %1$d ms", (endTime - startTime)));
+        products.forEach(product -> log.info(product.toString()));
+    }
+
+    @Test
+    @DisplayName("Get the top 3 expensive products of \"Books\" category")
+    public void exercise5b() {
+        long startTime = System.currentTimeMillis();
+        List<Product> products = productRepository.findAll()
+                .stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase("Books"))
+                .sorted(Comparator.comparing(Product::getPrice).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+        long endTime = System.currentTimeMillis();
+        log.info(String.format("exercise 5 - execution time: %1$d ms", (endTime - startTime)));
+        products.forEach(product -> log.info(product.toString()));
     }
 
     @Test
