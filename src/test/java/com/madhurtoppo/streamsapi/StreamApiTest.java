@@ -209,10 +209,10 @@ public class StreamApiTest {
     }
 
     @Test
-    @DisplayName("Calculate the total lump of all orders placed in Feb 2021")
+    @DisplayName("Calculate the total price of all orders placed in Feb 2021")
     public void exercise8() {
         long startTime = System.currentTimeMillis();
-        double result = orderRepository.findAll()
+        double total = orderRepository.findAll()
                 .stream()
                 .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
                 .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 3, 1)) < 0)
@@ -222,7 +222,7 @@ public class StreamApiTest {
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 8 - execution time: %1$d ms", (endTime - startTime)));
-        log.info("Total lump sum = " + result);
+        log.info("Total lump sum = " + total);
     }
 
     @Test
@@ -231,7 +231,7 @@ public class StreamApiTest {
         BiFunction<Double, Product, Double> accumulator = (acc, product) -> acc + product.getPrice();
 
         long startTime = System.currentTimeMillis();
-        double result = orderRepository.findAll()
+        double total = orderRepository.findAll()
                 .stream()
                 .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
                 .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 3, 1)) < 0)
@@ -240,14 +240,14 @@ public class StreamApiTest {
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 8a - execution time: %1$d ms", (endTime - startTime)));
-        log.info("Total lump sum = " + result);
+        log.info("Total lump sum = " + total);
     }
 
     @Test
     @DisplayName("Calculate the average price of all orders placed on 15-Mar-2021")
     public void exercise9() {
         long startTime = System.currentTimeMillis();
-        double result = orderRepository.findAll()
+        double average = orderRepository.findAll()
                 .stream()
                 .filter(o -> o.getOrderDate().isEqual(LocalDate.of(2021, 3, 15)))
                 .flatMap(o -> o.getProducts().stream())
@@ -257,7 +257,7 @@ public class StreamApiTest {
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 9 - execution time: %1$d ms", (endTime - startTime)));
-        log.info("Average = " + result);
+        log.info("Average = " + average);
     }
 
     @Test
@@ -266,7 +266,7 @@ public class StreamApiTest {
         long startTime = System.currentTimeMillis();
         DoubleSummaryStatistics statistics = productRepository.findAll()
                 .stream()
-                .filter(p -> p.getCategory().equalsIgnoreCase("Books"))
+                .filter(product -> product.getCategory().equalsIgnoreCase("Books"))
                 .mapToDouble(Product::getPrice)
                 .summaryStatistics();
 
