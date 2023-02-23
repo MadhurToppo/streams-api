@@ -123,10 +123,10 @@ public class StreamApiTest {
         List<Product> products = orderRepository.findAll()
                 .stream()
                 .filter(order -> order.getCustomer().getTier() == 2)
-                .filter(order -> order.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
-                .filter(order -> order.getOrderDate().compareTo(LocalDate.of(2021, 4, 1)) <= 0)
+                .filter(order -> !order.getOrderDate().isBefore(LocalDate.of(2021, 2, 1)))
+                .filter(order -> !order.getOrderDate().isAfter(LocalDate.of(2021, 4, 1)))
                 .flatMap(order -> order.getProducts().stream())
-                .peek(product -> System.out.println(product))
+                .peek(System.out::println)
                 .distinct()
                 .collect(Collectors.toList());
         long endTime = System.currentTimeMillis();
@@ -154,7 +154,7 @@ public class StreamApiTest {
         List<Product> products = productRepository.findAll()
                 .stream()
                 .filter(product -> product.getCategory().equalsIgnoreCase("Books"))
-                .peek(product -> System.out.println(product))
+                .peek(System.out::println)
                 .sorted(Comparator.comparing(Product::getPrice))
                 .limit(3)
                 .collect(Collectors.toList());
@@ -214,8 +214,8 @@ public class StreamApiTest {
         long startTime = System.currentTimeMillis();
         double total = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
-                .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 3, 1)) < 0)
+                .filter(o -> !o.getOrderDate().isBefore(LocalDate.of(2021, 2, 1)))
+                .filter(o -> o.getOrderDate().isBefore(LocalDate.of(2021, 3, 1)))
                 .flatMap(o -> o.getProducts().stream())
                 .mapToDouble(Product::getPrice)
                 .sum();
@@ -233,8 +233,8 @@ public class StreamApiTest {
         long startTime = System.currentTimeMillis();
         double total = orderRepository.findAll()
                 .stream()
-                .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 2, 1)) >= 0)
-                .filter(o -> o.getOrderDate().compareTo(LocalDate.of(2021, 3, 1)) < 0)
+                .filter(o -> !o.getOrderDate().isBefore(LocalDate.of(2021, 2, 1)))
+                .filter(o -> o.getOrderDate().isBefore(LocalDate.of(2021, 3, 1)))
                 .flatMap(o -> o.getProducts().stream())
                 .reduce(0D, accumulator, Double::sum);
 
@@ -278,20 +278,19 @@ public class StreamApiTest {
                 statistics.getMax(),
                 statistics.getMin(),
                 statistics.getSum()));
-
     }
 
     @Test
     @DisplayName("Obtain a mapping of order id and the order's product count")
     public void exercise11() {
         long startTime = System.currentTimeMillis();
-        Map<Long, Integer> result = orderRepository.findAll()
+        Map<Long, Integer> orderIdToProductCount = orderRepository.findAll()
                 .stream()
                 .collect(Collectors.toMap(Order::getId, order -> order.getProducts().size()));
 
         long endTime = System.currentTimeMillis();
         log.info(String.format("exercise 11 - execution time: %1$d ms", (endTime - startTime)));
-        log.info(result.toString());
+        log.info(orderIdToProductCount.toString());
     }
 
     @Test
