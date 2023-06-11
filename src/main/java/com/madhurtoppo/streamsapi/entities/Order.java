@@ -1,10 +1,23 @@
 package com.madhurtoppo.streamsapi.entities;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder
 @Data
@@ -14,25 +27,28 @@ import java.util.Set;
 @Table(name = "product_order")
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "order_date")
-    private LocalDate orderDate;
+  @Column(name = "order_date")
+  private LocalDate orderDate;
 
-    @Column(name = "delivery_date")
-    private LocalDate deliveryDate;
+  @Column(name = "delivery_date")
+  private LocalDate deliveryDate;
 
-    private String status;
+  private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+  @ManyToOne
+  @JoinColumn(name = "customer_id")
+  private Customer customer;
 
-    @ManyToMany
-    @JoinTable(name = "order_product_relationship", joinColumns = {@JoinColumn(name = "order_id")}, inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    Set<Product> products;
+  @ManyToMany
+  @JoinTable(
+      name = "order_product_relationship",
+      joinColumns = {@JoinColumn(name = "order_id")},
+      inverseJoinColumns = {@JoinColumn(name = "product_id")})
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  Set<Product> products;
 }
